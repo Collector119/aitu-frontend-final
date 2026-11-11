@@ -14,25 +14,19 @@ class Program {
     }
 }
 
-class FavoriteList {
-    constructor() {
-        this.items = [];
-    }
-
+class FavoriteList extends SavedList {
     has(name) {
         return this.items.includes(name);
     }
 
     add(name) {
         this.items.push(name);
+        this.save();
     }
 
     remove(name) {
         this.items.splice(this.items.indexOf(name), 1);
-    }
-
-    isEmpty() {
-        return this.items.length === 0;
+        this.save();
     }
 }
 
@@ -47,7 +41,7 @@ const programs = [
     new Program("Industrial Automation", "Engineering", "3 years", "English")
 ];
 
-const favorites = new FavoriteList();
+const favorites = new FavoriteList("favorites");
 
 const tableBody = document.querySelector("#programs-body");
 const searchInput = document.querySelector("#program-search");
@@ -174,4 +168,7 @@ searchInput.addEventListener("keydown", function (event) {
     }
 });
 
-showFilteredPrograms();
+favorites.items.forEach(function (name) {
+    showFavoriteItem(name);
+});
+updateFavoritesView();
