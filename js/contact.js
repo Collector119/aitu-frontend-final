@@ -1,5 +1,63 @@
+class QuestionList extends SavedList {
+    add(program, message) {
+        const question = {
+            program: program,
+            message: message,
+            date: new Date().toLocaleDateString("en-GB")
+        };
+        this.items.push(question);
+        this.save();
+    }
+
+    remove(index) {
+        this.items.splice(index, 1);
+        this.save();
+    }
+}
+
+const questions = new QuestionList("questions");
+
 const contactForm = document.querySelector("#contact-form");
 const successMessage = document.querySelector("#form-success");
+const questionsList = document.querySelector("#questions-list");
+const questionsEmpty = document.querySelector("#questions-empty");
+
+function createQuestionItem(question, index) {
+    const item = document.createElement("li");
+
+    const title = document.createElement("strong");
+    title.textContent = question.program + ", " + question.date;
+
+    const text = document.createElement("p");
+    text.textContent = question.message;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "btn btn-sm btn-outline-danger";
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function () {
+        questions.remove(index);
+        showQuestions();
+    });
+
+    item.appendChild(title);
+    item.appendChild(text);
+    item.appendChild(deleteButton);
+    return item;
+}
+
+// The whole list is drawn again, so every Delete button gets the right index
+function showQuestions() {
+    questionsList.innerHTML = "";
+    questions.items.forEach(function (question, index) {
+        questionsList.appendChild(createQuestionItem(question, index));
+    });
+    if (questions.isEmpty()) {
+        questionsEmpty.style.display = "block";
+    } else {
+        questionsEmpty.style.display = "none";
+    }
+}
 
 function showError(fieldId, message) {
     document.querySelector("#" + fieldId).classList.add("is-invalid");
@@ -75,6 +133,9 @@ contactForm.addEventListener("submit", function (event) {
     if (validateForm()) {
         const name = document.querySelector("#name").value.trim();
         const program = document.querySelector("#program").value;
+        const message = document.querySelector("#message").value.trim();
+        questions.add(program, message);
+        showQuestions();
         successMessage.textContent = "Thank you, " + name + "! Your question about " + program + " has been sent.";
         successMessage.style.display = "block";
         contactForm.reset();
@@ -87,3 +148,5 @@ fieldIds.forEach(function (fieldId) {
         clearError(fieldId);
     });
 });
+
+showQuestions();

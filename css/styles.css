@@ -220,12 +220,14 @@ a {
     font-weight: bold;
 }
 
-.favorites-list {
+.favorites-list,
+.questions-list {
     list-style-type: none;
     padding: 0;
 }
 
-.favorites-list li {
+.favorites-list li,
+.questions-list li {
     background-color: #ffffff;
     border: 1px solid #d8deeb;
     border-radius: 8px;
@@ -290,6 +292,10 @@ a {
     margin-top: 4px;
 }
 
+.questions-list p {
+    margin: 4px 0 8px;
+}
+
 .form-success {
     display: none;
     background-color: #d1f2dc;
@@ -329,7 +335,8 @@ body.dark-theme {
 .dark-theme .faq-item,
 .dark-theme #mission,
 .dark-theme #contact-form,
-.dark-theme .favorites-list li {
+.dark-theme .favorites-list li,
+.dark-theme .questions-list li {
     background-color: #1c2541;
     border-color: #2e3a5c;
 }
