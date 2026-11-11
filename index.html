@@ -88,6 +88,34 @@
         </div>
     </section>
 
+    <section class="container pb-5">
+        <h2 class="text-center mb-4">Weather in Astana Now</h2>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="stat">
+                    <span class="stat-number" id="weather-temperature">--</span>
+                    <span>temperature</span>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="stat">
+                    <span class="stat-number" id="weather-feels">--</span>
+                    <span>feels like</span>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="stat">
+                    <span class="stat-number" id="weather-wind">--</span>
+                    <span>wind speed</span>
+                </div>
+            </div>
+        </div>
+        <p class="text-center" id="weather-status"></p>
+        <div class="text-center">
+            <button class="btn btn-primary" type="button" id="weather-update">Update the weather</button>
+        </div>
+    </section>
+
 </main>
 
 <footer class="site-footer">
@@ -97,6 +125,7 @@
 </footer>
 
 <script src="js/theme.js"></script>
+<script src="js/weather.js"></script>
 
 </body>
 </html>
